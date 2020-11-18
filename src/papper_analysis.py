@@ -14,6 +14,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from txt_utils import TxtUtils
+from file_utils import FileUitls
 
 import constant
 from stopwords import PapperStopWords
@@ -44,8 +45,8 @@ def count_word_document(word, document_freq_dists):
     count = 0
     for fd in document_freq_dists:
         if fd.get(word) is not None:
-            count = count + 1
-            # count = count + fd.get(word)
+            # count = count + 1
+            count = count + fd.get(word)
     return count
 
 def top200(word_dict):
@@ -80,31 +81,25 @@ if __name__ == '__main__':
 
         for k, v in items:
             tf = v / total_word_count
+
             word_in_document_count = count_word_document(k, freq_dist)
-            idf = math.log((document_count / (word_in_document_count + 1)) + math.exp(len(k))/10)
-            tf_idf = tf * idf
+            idf = math.log((document_count / (word_in_document_count + 1)))
+
+            tf_idf = tf * idf  + math.log(min(10, len(k)))
+
             word_tf_idf[k] = [tf, idf, tf_idf]
-            word_freq[k] = tf_idf
     result = sorted(word_tf_idf.items(), key=lambda d: d[1][2])
     result.reverse()
 
     lemmatizer = WordNetLemmatizer()
     for k, v in result:
-        k1 = lemmatizer.lemmatize(k)
-        if len(k1) >= 5:
-            print(k1,  v)
+        k = lemmatizer.lemmatize(k)
+        if len(k) >= 4:
+            word_freq[k] = v[2]
+            print(k,  v)
 
-    color_mask = np.array(Image.open("/Users/wlh/asea/workspace/python/nlp_word/data/img_1.png"))
-
-    w = WordCloud(mask=color_mask, background_color='white')
-    w.generate_from_frequencies(word_freq)
-    image_colors = ImageColorGenerator(color_mask)
-    # 在只设置mask的情况下 会得到一个拥有图片形状的词云 axis默认为on 会开启边框
-    plt.imshow(w, interpolation="bilinear")
-    plt.axis("off")
-    plt.savefig("a.jpg")
-    # 直接在构造函数中直接给颜色 这种方式词云将会按照给定的图片颜色布局生成字体颜色策略
-    plt.imshow(w.recolor(color_func=image_colors), interpolation="bilinear")
-    plt.axis("off")
-    plt.savefig("w_i.jpg")
-    w.to_file("w.jpg")
+    final_result = ''
+    for k, v in word_freq.items():
+        line = str.format('{} {}\n', k, round(v, 7))
+        final_result = final_result + line
+    FileUitls.write(final_result, constant.result_file)
