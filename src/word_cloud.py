@@ -12,6 +12,6 @@ for l in lines:
     split = l.split(' ')
     word_freq[split[0]] = float(split[1])
 
-w = WordCloud(background_color='white', width=800, height=450, scale=1.5)
+w = WordCloud(background_color='white', width=800, height=450, scale=1.5,max_font_size=70)
 w.generate_from_frequencies(word_freq)
 w.to_file("top_word.jpg")

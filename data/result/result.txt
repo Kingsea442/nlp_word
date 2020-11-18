@@ -6,7 +6,6 @@ newspaper 2.2356268
 involuntary 2.3667842
 agricultural 2.3660215
 immigration 2.3633107
-Brynjolfsson 2.3609884
 emotionally 2.3603616
 Newspapers 2.3601884
 immigrant 2.2186755
