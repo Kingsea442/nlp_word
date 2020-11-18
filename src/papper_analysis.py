@@ -4,6 +4,10 @@ import math
 # from nltk.book import *
 import os
 import re
+from wordcloud import WordCloud, ImageColorGenerator
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
 
 import nltk
 from nltk.corpus import stopwords
@@ -69,6 +73,7 @@ if __name__ == '__main__':
         freq_dist.append(fd)
 
     word_tf_idf = {}
+    word_freq = {}
     for fd in freq_dist:
         items = fd.items()
         total_word_count = fd.N()
@@ -79,6 +84,7 @@ if __name__ == '__main__':
             idf = math.log((document_count / (word_in_document_count + 1)) + math.exp(len(k))/10)
             tf_idf = tf * idf
             word_tf_idf[k] = [tf, idf, tf_idf]
+            word_freq[k] = tf_idf
     result = sorted(word_tf_idf.items(), key=lambda d: d[1][2])
     result.reverse()
 
@@ -87,3 +93,18 @@ if __name__ == '__main__':
         k1 = lemmatizer.lemmatize(k)
         if len(k1) >= 5:
             print(k1,  v)
+
+    color_mask = np.array(Image.open("/Users/wlh/asea/workspace/python/nlp_word/data/img_1.png"))
+
+    w = WordCloud(mask=color_mask, background_color='white')
+    w.generate_from_frequencies(word_freq)
+    image_colors = ImageColorGenerator(color_mask)
+    # 在只设置mask的情况下 会得到一个拥有图片形状的词云 axis默认为on 会开启边框
+    plt.imshow(w, interpolation="bilinear")
+    plt.axis("off")
+    plt.savefig("a.jpg")
+    # 直接在构造函数中直接给颜色 这种方式词云将会按照给定的图片颜色布局生成字体颜色策略
+    plt.imshow(w.recolor(color_func=image_colors), interpolation="bilinear")
+    plt.axis("off")
+    plt.savefig("w_i.jpg")
+    w.to_file("w.jpg")
