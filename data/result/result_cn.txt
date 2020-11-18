@@ -6,7 +6,6 @@ newspaper 报纸  2.2356268
 involuntary 非自愿的  2.3667842
 agricultural 农业的  2.3660215
 immigration 移民  2.3633107
-Brynjolfsson Brynjolfsson  2.3609884
 emotionally 情感上  2.3603616
 Newspapers 报纸  2.3601884
 immigrant 移民  2.2186755
@@ -202,7 +201,7 @@ stereotype 刻板印象  2.3245757
 vocational 职业的  2.3272084
 inferiority 自卑  2.3272084
 assembling 装配  2.3272084
-graffitied 找不到临时图像的格式  2.3272084
+graffitied 找不到临时图像的格式,墙上乱写乱画的东西  2.3272084
 overwhelmed 不知所措  2.3272084
 memorization 记忆  2.3272084
 pioneering 开拓者  2.3272084
@@ -901,7 +900,6 @@ strengthen 加强 2.3134309
 understanding 理解力  2.3130688
 involvement 参与 2.3129914
 contingent 偶然的 2.3129914
-FitSmallBusiness Fitsallbusiness公司 2.3129914
 homeownership 房屋所有权 2.3129914
 consequence 结果 2.3129914
 superficial 肤浅的 2.3129914
