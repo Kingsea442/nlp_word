@@ -34,9 +34,16 @@ if __name__ == '__main__':
     print(freq_dist.most_common())
     print(freq_dist.most_common(400))
     top_400_words = freq_dist.most_common(400)
+
     stop_words_line = ''
+
+    for k, v in freq_dist.items():
+        if len(k) <= 3:
+            stop_words_line = stop_words_line + k + '\n'
+
     for k,v in top_400_words:
-        stop_words_line = stop_words_line + k + '\n'
+        if len(k) <= 6:
+            stop_words_line = stop_words_line + k + '\n'
 
     f = open(constant.paper_stop_words, 'w', encoding='utf-8')
     f.write(stop_words_line)

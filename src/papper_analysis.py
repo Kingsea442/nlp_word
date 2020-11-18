@@ -1,43 +1,21 @@
 from __future__ import division
 
 import math
-# from nltk.book import *
 import os
-import re
-from wordcloud import WordCloud, ImageColorGenerator
-import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
 
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-from txt_utils import TxtUtils
-from file_utils import FileUitls
 
 import constant
+from file_utils import FileUitls
 from stopwords import PapperStopWords
+from txt_utils import TxtUtils
 
-def df(txt):
-    tokenize_words = word_tokenize(txt, language='english', preserve_line=True)
-    filter_tokenize_word = [w for w in tokenize_words if not w in stop_words]
-    fdist = nltk.FreqDist(filter_tokenize_word)
-    total_word_count = fdist.B()
-    items = fdist.items()
-    for k, v in items:
-        tf = v / total_word_count
-        if tf > 0.1:
-            print(k, tf)
 
 def dist(txt):
     tokenize_words = word_tokenize(txt, language='english', preserve_line=True)
-    filter_tokenize_word = [w for w in tokenize_words if not w in stop_words]
-    freq_dist = nltk.FreqDist(filter_tokenize_word)
-    most_common = freq_dist.most_common(math.ceil(len(freq_dist)/3))
-    # most_common = freq_dist.most_common(50)
-    for k, v in most_common:
-        stop_words.add(k)
     filter_tokenize_word = [w for w in tokenize_words if not w in stop_words]
     return nltk.FreqDist(filter_tokenize_word)
 
@@ -85,7 +63,7 @@ if __name__ == '__main__':
             word_in_document_count = count_word_document(k, freq_dist)
             idf = math.log((document_count / (word_in_document_count + 1)))
 
-            tf_idf = tf * idf  + math.log(min(10, len(k)))
+            tf_idf = tf * idf + math.log(min(10, len(k)))
 
             word_tf_idf[k] = [tf, idf, tf_idf]
     result = sorted(word_tf_idf.items(), key=lambda d: d[1][2])

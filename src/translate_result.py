@@ -6,7 +6,7 @@ lines = FileUitls.reade_lines(src.constant.result_file)
 b_translate = BaiduTranslate()
 
 result_cn = ''
-for l in lines[0:500]:
+for l in lines[0:1000]:
     l = str.replace(l, '\n', '')
     split = l.split(' ')
     word = split[0]

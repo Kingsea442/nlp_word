@@ -15,7 +15,7 @@ for l in lines[0:500]:
     split = l.split(' ')
     word_freq[split[0]] = float(split[1])
 print(word_freq)
-color_mask = np.array(Image.open("/Users/wlh/asea/workspace/python/nlp_word/data/sxc.png"))
+color_mask = np.array(Image.open("/Users/wlh/asea/workspace/python/nlp_word/data/wlh.png"))
 
 w = WordCloud(mask=color_mask, background_color='white', width=1000, height=1000)
 w.generate_from_frequencies(word_freq)
